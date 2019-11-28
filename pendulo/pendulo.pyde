@@ -1,8 +1,9 @@
-
-teta = 10.0*PI/180 #ângulo inicial
+teta = PI/6
 R = 200 #comprimento
 g = 980.0 #aceleração da gravidade
-vt = 0.0 #velocidade inicial
+vt = 0.01
+h = R-R*cos(teta)
+EM = g*h+(vt**2)/2
 
 oldt = millis()/1000.0
 
@@ -12,26 +13,31 @@ def setup():
   
 
 def draw():
-  global oldt, teta, R, vt, g
+  global oldt, teta, R, vt, g, h, EM
   t = millis()/1000.00
   dt = t - oldt
   oldt = t
   
-  #componente tangencial da aceleração
-  at = -g*sin(teta)
-  #atualização de posição e velocidade
-  teta += vt*dt/R
-  vt += at*dt
+  omega = vt/R
+  teta -= omega*dt
   x = R*sin(teta)
   y = R*cos(teta)
-  
+  vt = (2*(EM-g*y))**0.5
   background(255)
   stroke(0)
   posx = 400+x
-  posy = 200+y
+  posy = R-y
   line(400,200,posx, posy)
   fill(0)
   ellipse(posx,posy,20, 20)
+  
+  
+
+    
+  
+
+  
+  
   
   
 
