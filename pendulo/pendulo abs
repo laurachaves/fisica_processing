@@ -1,0 +1,42 @@
+
+teta = PI/3
+R = 200 #comprimento
+h = R-R*cos(teta)
+g = 98.0 #aceleração da gravidade
+vt = 0.01 #velocidade inicial
+EM = g*h + (vt**2)/2
+oldt = millis()/1000.0
+
+
+def setup():
+  size(800,800)
+  
+print('vt', vt)
+def draw():
+  global oldt, teta, R, vt, g, EM, h
+  #print(vt)
+  t = millis()/1000.00
+  dt = t - oldt
+  oldt = t
+  #print(vt)
+  omega = vt/R
+  teta -= omega*dt
+  x = R*sin(teta)
+  y = R-R*cos(teta)  
+  posx = 400+x
+  posy = R-y
+  vt = (2*abs(EM-g*y))**(1/2.0)
+  #print('g',g)
+  #print('y',y)
+
+  #print(vt)
+
+
+  
+  background(255)
+  stroke(0)
+ 
+  line(400,10,posx, posy+10)
+  fill(0)
+  ellipse(posx,posy+10,20, 20)
+  
